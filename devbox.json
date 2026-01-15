@@ -2,8 +2,9 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
   "packages": [
     "path:./nix/node#node",
-    "pnpm@latest",
-    "npm-check-updates@latest"
+    "pnpm@10",
+    "npm-check-updates@latest",
+    "osv-scanner@latest"
   ],
   "env": {
     "DEVBOX_NO_PROMPT": "true"
@@ -13,7 +14,10 @@
     "scripts": {
       "install": "pnpm install --frozen-lockfile",
       "dev": "pnpm dev",
-      "build": "pnpm build"
+      "build": "pnpm build",
+      "lint": "pnpm lint",
+      "scan": "pnpm scan",
+      "format": "pnpm format"
     }
   }
 }

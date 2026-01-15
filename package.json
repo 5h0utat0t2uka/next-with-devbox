@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "biome check",
+    "scan": "osv-scanner scan source -r .",
     "format": "biome format --write"
   },
   "dependencies": {

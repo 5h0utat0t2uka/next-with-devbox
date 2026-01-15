@@ -1,7 +1,17 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).  
-
+## 構成  
 このリポジトリは`devbox`, `pnpm`を利用して、セキュアな **Next.js** の開発環境を、異なるOSや開発者間の環境で再現するためのサンプルです  
+
 また、できるだけ早い`node`の最新バージョンへの追従のため、パッケージの参照先に一部`nix`を利用します  
+
+### 開発環境の趣旨と概要  
+- 各ユーザー環境の`node`や`pnpm`のバージョンやインストール有無に関わらず、隔離された共通の開発環境にする
+- `osv-scanner` を利用して、依存関係をインストールする前にロックファイルからパッケージの脆弱性を確認する
+- サプライチェーン攻撃・パッケージ汚染の対策として、信用するパッケージを除いてレジストリ公開後24時間未満のパッケージをインストールしない  
+> [!NOTE]
+> 悪意のあるパッケージは多くの場合レジストリ公開後数時間程度で削除されるため、インストール自体を未然に防ぐための対策です  
+- インストール時の`preinstall`や`postinstall`などのビルドスクリプトは、明示的に許可したパッケージ以外は実行させない  
+> [!NOTE]
+> インストール時のスクリプトをトリガとする感染を防ぐための対策です  
 
 ## 前提条件  
 対象OS  
@@ -9,13 +19,15 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 - Linux (x86_64, aarch64)
 - Windows: WSL2 (Ubuntu recommended)
 
-インストールが必要なもの  
+事前にインストールが必要なもの  
 1. [Determinate Nix](https://determinate.systems/nix-installer/)  
 2. [Devbox](https://www.jetify.com/devbox)  
 
 ## 開発環境  
 `devbox.json`で定義している以下のコマンドで可能です  
 ```sh
+# Scan existing vulnerabilities from lockfile
+devbox run scan
 # Install dependencies
 devbox run install
 # Start development server
@@ -24,17 +36,35 @@ devbox run dev
 devbox run build
 ```
 
-もしくは`devbox shell`で開発環境を直接起動できます  
+もしくは`devbox shell`で開発環境を直接起動することもできます  
 終了は`exit`です  
 ```sh
 # Launch devbox shell
 devbox shell
+# Scan existing vulnerabilities from lockfile
+pnpm scan
 # Install dependencies
 pnpm install --frozen-lockfile
 # Start development server
 pnpm dev
 # Build production version
 pnpm build
+```
+
+## バージョン管理  
+以下の2つのレイヤーに分けて管理されます  
+- 開発環境
+従来各ユーザーに委ねられていた部分で、主に`node`や`pnpm`などのパッケージマネージャを`devbox.json`で管理します  
+後述する`node`のバージョン固定するようなケース以外では、以下のコマンドでアップデートします
+```sh
+devbox update
+```
+
+- アプリケーション
+`next`や`react`などのライブラリは`package.json`で管理します  
+``` sh
+ncu -u
+pnpm install
 ```
 
 ## `node`のバージョン更新  
