@@ -53,15 +53,15 @@ pnpm build
 
 ## バージョン管理  
 以下の2つのレイヤーに分けて管理されます  
-- 開発環境
+- 開発環境  
 従来各ユーザーに委ねられていた部分で、主に`node`や`pnpm`などのパッケージマネージャを`devbox.json`で管理します  
 後述する`node`のバージョン固定するようなケース以外では、以下のコマンドでアップデートします
 ```sh
 devbox update
 ```
 
-- アプリケーション
-`next`や`react`などのライブラリは`package.json`で管理します  
+- アプリケーション  
+`next`や`react`などのライブラリは、通常通り`package.json`で管理します  
 ``` sh
 ncu -u
 pnpm install

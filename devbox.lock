@@ -53,11 +53,55 @@
         }
       }
     },
-    "osv-scanner": {
-      "resolved": "github:NixOS/nixpkgs/13868c071cc73a5e9f610c47d7bb08e5da64fdd5#osv-scanner",
-      "source": "nixpkg"
+    "osv-scanner@latest": {
+      "last_modified": "2026-01-09T13:41:53Z",
+      "resolved": "github:NixOS/nixpkgs/5f02c91314c8ba4afe83b256b023756412218535#osv-scanner",
+      "source": "devbox-search",
+      "version": "2.3.1",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/x0lnkcjm8vpa1yfklsr1cc6klb0wp15r-osv-scanner-2.3.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/x0lnkcjm8vpa1yfklsr1cc6klb0wp15r-osv-scanner-2.3.1"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/9vq5d2fh7pa5n3lqlc9qzi8igvq2gpg4-osv-scanner-2.3.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/9vq5d2fh7pa5n3lqlc9qzi8igvq2gpg4-osv-scanner-2.3.1"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/hmfniycw2an76wcp04nm9dpzjc3vrw5d-osv-scanner-2.3.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/hmfniycw2an76wcp04nm9dpzjc3vrw5d-osv-scanner-2.3.1"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/ip4xjj2l2m0q6cdi5v9mkwf2xq190smx-osv-scanner-2.3.1",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/ip4xjj2l2m0q6cdi5v9mkwf2xq190smx-osv-scanner-2.3.1"
+        }
+      }
     },
-    "pnpm@latest": {
+    "pnpm@10": {
       "last_modified": "2025-12-31T03:27:36Z",
       "resolved": "github:NixOS/nixpkgs/f665af0cdb70ed27e1bd8f9fdfecaf451260fc55#pnpm",
       "source": "devbox-search",
