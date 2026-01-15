@@ -1,10 +1,9 @@
 {
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
   "packages": [
-    "nodejs_24@latest",
+    "path:./nix/node#node",
     "pnpm@latest",
-    "npm-check-updates@latest",
-    "ni"
+    "npm-check-updates@latest"
   ],
   "env": {
     "DEVBOX_NO_PROMPT": "true"
@@ -12,11 +11,9 @@
   "shell": {
     "init_hook": [],
     "scripts": {
-      "install": "pnpm install",
+      "install": "pnpm install --frozen-lockfile",
       "dev": "pnpm dev",
-      "update": "ncu -u && pnpm install",
-      "build": "pnpm build",
-      "start": "pnpm start"
+      "build": "pnpm build"
     }
   }
 }

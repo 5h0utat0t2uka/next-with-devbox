@@ -1,4 +1,3 @@
-# nix/node/flake.nix
 {
   description = "Pinned Node.js (prebuilt) for Devbox";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -45,9 +44,13 @@
       # Fill these once by the steps below
       # -----------------------------
       hashes = {
-        aarch64-darwin = lib.fakeSha256;
+        # macOS（Apple Silicon / ARM64）
+        aarch64-darwin = "sha256-1ZWWHlY/yuBX1KD7mS8XWlTZf8xKFNwtR02S3e6jufg=";
+        # macOS（Intel / x86_64）
         x86_64-darwin  = lib.fakeSha256;
+        # Linux（ARM64）
         aarch64-linux  = lib.fakeSha256;
+        # Linux（ARM64）
         x86_64-linux   = lib.fakeSha256;
       };
     in
@@ -81,7 +84,5 @@
             };
           };
         });
-      # optional: `nix run .#node -- -v` style isn't supported directly because this is a package,
-      # but devbox/nix can install it and expose bin/node.
     };
 }
