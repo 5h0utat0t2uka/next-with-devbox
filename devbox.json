@@ -2,22 +2,20 @@
   "$schema": "https://raw.githubusercontent.com/jetify-com/devbox/0.16.0/.schema/devbox.schema.json",
   "packages": [
     "path:./nix/node#node",
-    "pnpm@10",
-    "npm-check-updates@latest",
     "osv-scanner@latest"
   ],
   "env": {
     "DEVBOX_NO_PROMPT": "true"
   },
   "shell": {
-    "init_hook": [],
+    "init_hook": ["corepack prepare pnpm@10.26.1 --activate"],
     "scripts": {
-      "install": "pnpm install --frozen-lockfile",
-      "dev": "pnpm dev",
-      "build": "pnpm build",
-      "lint": "pnpm lint",
-      "scan": "pnpm scan",
-      "format": "pnpm format"
+      "install": "corepack pnpm install --frozen-lockfile",
+      "dev": "corepack pnpm dev",
+      "build": "corepack pnpm build",
+      "lint": "corepack pnpm lint",
+      "scan": "corepack pnpm scan",
+      "format": "corepack pnpm format"
     }
   }
 }

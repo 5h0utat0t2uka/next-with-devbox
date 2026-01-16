@@ -20,8 +20,8 @@
 - Windows: WSL2 (Ubuntu recommended)
 
 事前にインストールが必要なもの  
-1. [Determinate Nix](https://determinate.systems/nix-installer/)  
-2. [Devbox](https://www.jetify.com/devbox)  
+- [Determinate Nix](https://determinate.systems/nix-installer/)  
+- [Devbox](https://www.jetify.com/devbox)  
 
 ## 開発環境  
 `devbox.json`で定義している以下のコマンドで可能です  
@@ -42,13 +42,13 @@ devbox run build
 # Launch devbox shell
 devbox shell
 # Scan existing vulnerabilities from lockfile
-pnpm scan
+corepack pnpm scan
 # Install dependencies
-pnpm install --frozen-lockfile
+corepack pnpm install --frozen-lockfile
 # Start development server
-pnpm dev
+corepack pnpm dev
 # Build production version
-pnpm build
+corepack pnpm build
 ```
 
 ## バージョン管理  
@@ -61,13 +61,16 @@ devbox update
 ```
 
 - アプリケーション  
-`next`や`react`などのライブラリは、通常通り`package.json`で管理します  
+`next`や`react`などのライブラリは、通常通り`package.json`で管理されるので、以下のように`ncu`で確認・アップデートを行います  
 ``` sh
 ncu -u
 pnpm install
 ```
 
 ## `node`のバージョン更新  
+> [!NOTE]
+> これは`nixpkgs`に最新のバージョンが反映されるまでにタイムラグがあるため、必要な場合に`nodejs`から直接最新バージョンを取り込むための参考としてのもので、必須ではありません  
+
 1. `nix/node/flake.nix`の下記`version`を更新  
 ``` nix
 # -----------------------------
@@ -132,25 +135,20 @@ exit
 > (2)の手順で失敗させて正しいハッシュ値を確認してますが、以下のコマンドで事前にハッシュを取得することも可能です  
 > バージョンは適時書き換えてください  
 
-- macOS Apple Silicon（aarch64-darwin）  
 ``` sh
+# macOS Apple Silicon（aarch64-darwin）
 nix store prefetch-file https://nodejs.org/dist/v24.13.0/node-v24.13.0-darwin-arm64.tar.gz
-```
 
-- macOS Intel（x86_64-darwin）  
-``` sh
+# macOS Intel（x86_64-darwin）
 nix store prefetch-file https://nodejs.org/dist/v24.13.0/node-v24.13.0-darwin-x64.tar.gz
-```
 
-- Linux ARM64（aarch64-linux）  
-``` sh
+# Linux ARM64（aarch64-linux）
 nix store prefetch-file https://nodejs.org/dist/v24.13.0/node-v24.13.0-linux-arm64.tar.xz
-```
 
-- Linux x86_64（x86_64-linux）  
-``` sh
+# Linux x86_64（x86_64-linux）
 nix store prefetch-file https://nodejs.org/dist/v24.13.0/node-v24.13.0-linux-x64.tar.xz
 ```
+
 
 > [!NOTE]
 > `node`のバージョンを厳格に管理しない場合は、`devbox.json`の`packages`の配列で参照してる`"path:./nix/node#node"`を`"nodejs_24@latest"`に変更してください  
