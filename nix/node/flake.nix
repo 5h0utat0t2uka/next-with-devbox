@@ -50,9 +50,7 @@
         aarch64-linux  = lib.fakeSha256;
         x86_64-linux   = lib.fakeSha256;
       };
-
-      # pnpm tarball hash（全OS共通でOK。pnpm は JS の npm パッケージなので同一）
-      pnpmHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+      pnpmHash = "sha256-6ObkmRKPaAT1ySIjzR8uP2JVcQLAxuJUzJm7KqIpu/k=";
     in
     {
       packages = forAllSystems (system:
