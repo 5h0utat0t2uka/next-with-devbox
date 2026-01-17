@@ -16,7 +16,7 @@
         "type": "github"
       }
     },
-    "node": {
+    "pinnedNodeFlake": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
@@ -35,7 +35,7 @@
     "root": {
       "inputs": {
         "nixpkgs": "nixpkgs",
-        "node": "node"
+        "pinnedNodeFlake": "pinnedNodeFlake"
       }
     }
   },

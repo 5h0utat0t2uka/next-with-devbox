@@ -1,5 +1,5 @@
 {
-  description = "Pinned Node.js (prebuilt) for Devbox";
+  description = "Pinned Node.js (prebuilt) + pnpm for Devbox";
   inputs.nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
 
   outputs = { self, nixpkgs }:
@@ -10,6 +10,8 @@
       # Update only this
       # -----------------------------
       version = "24.13.0";
+      pnpmVersion = "10.26.1";
+
       systems = [
         "aarch64-darwin"
         "x86_64-darwin"
@@ -41,18 +43,16 @@
 
       # -----------------------------
       # Hashes (one per system)
-      # Fill these once by the steps below
       # -----------------------------
-      hashes = {
-        # macOS（Apple Silicon / ARM64）
+      nodeHashes = {
         aarch64-darwin = "sha256-1ZWWHlY/yuBX1KD7mS8XWlTZf8xKFNwtR02S3e6jufg=";
-        # macOS（Intel / x86_64）
         x86_64-darwin  = lib.fakeSha256;
-        # Linux（ARM64）
         aarch64-linux  = lib.fakeSha256;
-        # Linux（ARM64）
         x86_64-linux   = lib.fakeSha256;
       };
+
+      # pnpm tarball hash（全OS共通でOK。pnpm は JS の npm パッケージなので同一）
+      pnpmHash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
     in
     {
       packages = forAllSystems (system:
@@ -60,29 +60,67 @@
           pkgs = import nixpkgs { inherit system; };
           dist = nodeDist system;
 
-          src = pkgs.fetchurl {
+          nodeSrc = pkgs.fetchurl {
             url = dist.url;
-            sha256 = hashes.${system};
+            sha256 = nodeHashes.${system};
           };
-        in
-        {
-          # Use as: path:./nix/node#node
-          node = pkgs.stdenvNoCC.mkDerivation {
+          # Node.js derivation
+          nodeDrv = pkgs.stdenvNoCC.mkDerivation {
             pname = "nodejs";
-            inherit version src;
+            inherit version;
+            src = nodeSrc;
 
             dontConfigure = true;
             dontBuild = true;
+
             installPhase = ''
               mkdir -p "$out"
               ${dist.unpack} "$src" --strip-components=1 -C "$out"
             '';
+
             meta = with lib; {
               description = "Node.js ${version} (official prebuilt binary tarball)";
               homepage = "https://nodejs.org/";
               platforms = platforms.all;
             };
           };
+
+          # pnpm を Nix で固定（nodeDrv の /bin/node で起動するラッパーを作る）
+          pnpmSrc = pkgs.fetchurl {
+            url = "https://registry.npmjs.org/pnpm/-/pnpm-${pnpmVersion}.tgz";
+            hash = pnpmHash; # 初回は mismatch -> got: を貼る
+          };
+
+          pnpmDrv = pkgs.stdenvNoCC.mkDerivation {
+            pname = "pnpm";
+            version = pnpmVersion;
+            src = pnpmSrc;
+
+            nativeBuildInputs = [ pkgs.gnutar pkgs.gzip ];
+            dontConfigure = true;
+            dontBuild = true;
+
+            installPhase = ''
+              mkdir -p "$out/libexec" "$out/bin"
+              # npm tarball は package/ 配下
+              tar -xzf "$src"
+              cp -R package/* "$out/libexec/"
+              # Node のストアパスを固定して pnpm を起動
+              cat > "$out/bin/pnpm" <<EOF
+              #!${pkgs.runtimeShell}
+              exec "${nodeDrv}/bin/node" "$out/libexec/bin/pnpm.cjs" "\$@"
+              EOF
+              chmod +x "$out/bin/pnpm"
+            '';
+          };
+        in
+        {
+          # Use as: path:./nix/node#node
+          node = nodeDrv;
+          # Use as: path:./nix/node#pnpm
+          pnpm = pnpmDrv;
+          # 任意：path:./nix/node だけで node が出るようにしたいなら
+          default = nodeDrv;
         });
     };
 }
