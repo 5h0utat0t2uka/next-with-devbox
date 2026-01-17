@@ -86,7 +86,7 @@
           # pnpm を Nix で固定（nodeDrv の /bin/node で起動するラッパーを作る）
           pnpmSrc = pkgs.fetchurl {
             url = "https://registry.npmjs.org/pnpm/-/pnpm-${pnpmVersion}.tgz";
-            hash = pnpmHash; # 初回は mismatch -> got: を貼る
+            hash = pnpmHash;
           };
 
           pnpmDrv = pkgs.stdenvNoCC.mkDerivation {
@@ -117,7 +117,6 @@
           node = nodeDrv;
           # Use as: path:./nix/node#pnpm
           pnpm = pnpmDrv;
-          # 任意：path:./nix/node だけで node が出るようにしたいなら
           default = nodeDrv;
         });
     };

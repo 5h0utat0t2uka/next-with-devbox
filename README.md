@@ -1,17 +1,16 @@
 ## 構成  
 このリポジトリは`devbox`, `pnpm`を利用して、セキュアな **Next.js** の開発環境を、異なるOSや開発者間の環境で再現するためのサンプルです  
 
-また、できるだけ早い`node`の最新バージョンへの追従のため、パッケージの参照先に一部`nix`を利用します  
+`devbox`は`nix`を簡単に扱えるようになるラッパーですが、できるだけ早い`node`の最新バージョンへの追従するための参考として、このリポジトリではパッケージの参照先に一部`nix`を利用します  
 
-### 開発環境の趣旨と概要  
+### 目的と趣旨  
 - 各ユーザー環境の`node`や`pnpm`のバージョンやインストール有無に関わらず、隔離された共通の開発環境にする
 - `osv-scanner` を利用して、依存関係をインストールする前にロックファイルからパッケージの脆弱性を確認する
-- サプライチェーン攻撃・パッケージ汚染の対策として、信用するパッケージを除いてレジストリ公開後24時間未満のパッケージをインストールしない  
-> [!NOTE]
-> 悪意のあるパッケージは多くの場合レジストリ公開後数時間程度で削除されるため、インストール自体を未然に防ぐための対策です  
-- インストール時の`preinstall`や`postinstall`などのビルドスクリプトは、明示的に許可したパッケージ以外は実行させない  
-> [!NOTE]
-> インストール時のスクリプトをトリガとする感染を防ぐための対策です  
+- サプライチェーン攻撃・パッケージ汚染の対策として、信用するパッケージを除いてレジストリ公開後24時間未満のパッケージをインストールしない [^1]  
+- インストール時の`preinstall`や`postinstall`などのビルドスクリプトは、明示的に許可したパッケージ以外は実行させない [^2]  
+
+[^1]: 悪意のあるパッケージは多くの場合レジストリ公開後数時間程度で削除されるため、インストール自体を未然に防ぐための対策です  
+[^2]: インストール時のスクリプトをトリガとする感染を防ぐための対策です  
 
 ## 前提条件  
 対象OS  
@@ -24,7 +23,7 @@
 - [Devbox](https://www.jetify.com/devbox)  
 
 ## 開発環境  
-`devbox.json`で定義している以下のコマンドで可能です  
+`devbox.json`で定義している以下のコマンドが利用可能です  
 ```sh
 # Scan existing vulnerabilities from lockfile
 devbox run scan
@@ -37,19 +36,21 @@ devbox run build
 ```
 
 もしくは`devbox shell`で開発環境を直接起動することもできます  
-終了は`exit`です  
 ```sh
 # Launch devbox shell
 devbox shell
 # Scan existing vulnerabilities from lockfile
-corepack pnpm scan
+pnpm scan
 # Install dependencies
-corepack pnpm install --frozen-lockfile
+pnpm install --frozen-lockfile
 # Start development server
-corepack pnpm dev
+pnpm dev
 # Build production version
-corepack pnpm build
+pnpm build
+# Exit devbox shell
+exit
 ```
+終了は`exit`です  
 
 ## バージョン管理  
 以下の2つのレイヤーに分けて管理されます  
