@@ -22,11 +22,9 @@
           pnpmVersion = "10.26.1";
 
           # pnpm は本体が JS なので、tarball を fetch してラッパーを作る
-          # （npm -g ではなく Nix store に固定）
           src = pkgs.fetchurl {
             url = "https://registry.npmjs.org/pnpm/-/pnpm-${pnpmVersion}.tgz";
-            # 初回は fake でビルドして got: を埋める
-            hash = "sha256-AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
+            hash = "sha256-6ObkmRKPaAT1ySIjzR8uP2JVcQLAxuJUzJm7KqIpu/k=";
           };
 
           pkg = pkgs.stdenvNoCC.mkDerivation {
