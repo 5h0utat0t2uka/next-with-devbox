@@ -2,9 +2,8 @@
   "name": "next-with-devbox",
   "version": "0.1.0",
   "private": true,
-  "packageManager": "pnpm@10.26.1",
   "engines": {
-    "node": "24.13.0",
+    "node": "24.x",
     "npm": "Forbidden, use pnpm",
     "yarn": "Forbidden, use pnpm"
   },
