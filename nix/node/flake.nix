@@ -9,7 +9,7 @@
       # -----------------------------
       # Update only this
       # -----------------------------
-      version = "24.13.0";
+      nodeVersion = "24.13.0";
       pnpmVersion = "10.26.1";
 
       systems = [
@@ -24,19 +24,19 @@
       # Pick the official Node.js prebuilt artifact per platform
       nodeDist = system:
         let
-          base = "https://nodejs.org/dist/v${version}";
+          base = "https://nodejs.org/dist/v${nodeVersion}";
         in
         if system == "aarch64-darwin" then {
-          url = "${base}/node-v${version}-darwin-arm64.tar.gz";
+          url = "${base}/node-v${nodeVersion}-darwin-arm64.tar.gz";
           unpack = "tar -xzf";
         } else if system == "x86_64-darwin" then {
-          url = "${base}/node-v${version}-darwin-x64.tar.gz";
+          url = "${base}/node-v${nodeVersion}-darwin-x64.tar.gz";
           unpack = "tar -xzf";
         } else if system == "aarch64-linux" then {
-          url = "${base}/node-v${version}-linux-arm64.tar.xz";
+          url = "${base}/node-v${nodeVersion}-linux-arm64.tar.xz";
           unpack = "tar -xJf";
         } else if system == "x86_64-linux" then {
-          url = "${base}/node-v${version}-linux-x64.tar.xz";
+          url = "${base}/node-v${nodeVersion}-linux-x64.tar.xz";
           unpack = "tar -xJf";
         } else
           throw "Unsupported system: ${system}";
@@ -64,8 +64,8 @@
           };
           # Node.js derivation
           nodeDrv = pkgs.stdenvNoCC.mkDerivation {
-            pname = "nodejs";
-            inherit version;
+            name = "nodejs";
+            inherit nodeVersion;
             src = nodeSrc;
 
             dontConfigure = true;
@@ -90,7 +90,7 @@
           };
 
           pnpmDrv = pkgs.stdenvNoCC.mkDerivation {
-            pname = "pnpm";
+            name = "pnpm";
             version = pnpmVersion;
             src = pnpmSrc;
 

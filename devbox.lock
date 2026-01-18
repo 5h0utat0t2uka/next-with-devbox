@@ -5,6 +5,102 @@
       "last_modified": "2026-01-14T12:51:35Z",
       "resolved": "github:NixOS/nixpkgs/13868c071cc73a5e9f610c47d7bb08e5da64fdd5?lastModified=1768395095"
     },
+    "infisical@latest": {
+      "last_modified": "2025-12-31T03:27:36Z",
+      "resolved": "github:NixOS/nixpkgs/f665af0cdb70ed27e1bd8f9fdfecaf451260fc55#infisical",
+      "source": "devbox-search",
+      "version": "0.41.90",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/kpqy87c2i2m8qi87rph01n3fg4adzrbb-infisical-0.41.90",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/kpqy87c2i2m8qi87rph01n3fg4adzrbb-infisical-0.41.90"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/z6j0rjrhf4spcac52laqd0gvhna8lg07-infisical-0.41.90",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/z6j0rjrhf4spcac52laqd0gvhna8lg07-infisical-0.41.90"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/f0ac9jriwyng13isxiahpwb1fa6pakp6-infisical-0.41.90",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/f0ac9jriwyng13isxiahpwb1fa6pakp6-infisical-0.41.90"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/lx8w5gsxvz7v1dmksakn2dm46sxmc412-infisical-0.41.90",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/lx8w5gsxvz7v1dmksakn2dm46sxmc412-infisical-0.41.90"
+        }
+      }
+    },
+    "npm-check-updates@latest": {
+      "last_modified": "2025-12-31T03:27:36Z",
+      "resolved": "github:NixOS/nixpkgs/f665af0cdb70ed27e1bd8f9fdfecaf451260fc55#npm-check-updates",
+      "source": "devbox-search",
+      "version": "19.1.0",
+      "systems": {
+        "aarch64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/l4pajygdr5vc09355nw2h45nnnr0ddrj-npm-check-updates-19.1.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/l4pajygdr5vc09355nw2h45nnnr0ddrj-npm-check-updates-19.1.0"
+        },
+        "aarch64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/hscadh2ir6mm76hfx044sil0s0x1n3c0-npm-check-updates-19.1.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/hscadh2ir6mm76hfx044sil0s0x1n3c0-npm-check-updates-19.1.0"
+        },
+        "x86_64-darwin": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/y2w87j40cqwydhaqa0fb90dyhlbafg9p-npm-check-updates-19.1.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/y2w87j40cqwydhaqa0fb90dyhlbafg9p-npm-check-updates-19.1.0"
+        },
+        "x86_64-linux": {
+          "outputs": [
+            {
+              "name": "out",
+              "path": "/nix/store/6rrrgzwvbs2xn9rwc276vvz04cg8cqb8-npm-check-updates-19.1.0",
+              "default": true
+            }
+          ],
+          "store_path": "/nix/store/6rrrgzwvbs2xn9rwc276vvz04cg8cqb8-npm-check-updates-19.1.0"
+        }
+      }
+    },
     "osv-scanner@latest": {
       "last_modified": "2026-01-09T13:41:53Z",
       "resolved": "github:NixOS/nixpkgs/5f02c91314c8ba4afe83b256b023756412218535#osv-scanner",

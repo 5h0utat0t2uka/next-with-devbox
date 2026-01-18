@@ -3,7 +3,9 @@
   "packages": [
     "path:./nix/node#node",
     "path:./nix/node#pnpm",
-    "osv-scanner@latest"
+    "osv-scanner@latest",
+    "infisical@latest",
+    "npm-check-updates@latest"
   ],
   "env": {
     "DEVBOX_NO_PROMPT": "true"
