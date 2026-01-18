@@ -9,8 +9,10 @@
   },
   "scripts": {
     "dev": "infisical run --env dev --path /next-with-devbox -- next dev",
-    "build": "infisical run --env prod --path /next-with-devbox -- next build",
-    "start": "infisical run --env prod --path /next-with-devbox -- next start",
+    "build": "next build",
+    "start": "next start",
+    "build:local": "infisical run --env prod --path /next-with-devbox -- next build",
+    "start:local": "infisical run --env prod --path /next-with-devbox -- next start",
     "lint": "biome check",
     "scan": "osv-scanner scan source -r .",
     "format": "biome format --write"
